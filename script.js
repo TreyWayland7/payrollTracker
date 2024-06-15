@@ -1,78 +1,80 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
-const promptUserData_firstName = function() {
-  let userFirstName = prompt("First Name"); // prompts the user for first name
-  return userFirstName;
-}
+const collectEmployees = function() {
+  let collectedEmployees = []; // this stores the employee object and will be returned
+  let newEmployee; // this will store the employee object
 
-const promptUserData_lastName = function() {
-  let userLastName = prompt("Last Name"); // prompts the user for last name
-  return userLastName;
-}
-
-const promptUserData_salary = function() {
-  let userSalary = prompt("Salary"); // prompts the user for salary
-  return userSalary;
-}
-
-const promptUserData_continue = function() {
-  addAnotherEmployee = confirm("Add another employee?"); // prompt the user to add another user
-  return addAnotherEmployee;
+  do{
+    newEmployee = create_employeeObject(); // create a new employee
+    collectedEmployees.push(newEmployee); // save that employee to an array
+  } while (promptUserData_continue()); // prompts the user if they want to continue
+ 
+  return collectedEmployees;
 }
 
 const create_employeeObject = function() {
   const employeeData = {
-    firstName : promptUserData_firstName(),
-    lastName : promptUserData_lastName(),
-    salary : promptUserData_salary()
+    firstName : promptUserData_firstName(), // prompts the user for first name
+    lastName : promptUserData_lastName(), // prompts the user for last name
+    salary : promptUserData_salary() // prompts the user for salary
   };
   return employeeData;
 }
 
-// Collect employee data
-const collectEmployees = function() {
-
-  
-  let collectedEmployees = []; // this stores the employee object and will be returned
-  let newEmployee;
-
-  do{
-
-    newEmployee = create_employeeObject();
-    collectedEmployees.push(newEmployee); // pushes that object onto the array
-    // addAnotherEmployee = confirm("Add another employee?"); 
-    
-    // if (addAnotherEmployee === false){ 
-    //   return collectedEmployees;
-    // }
-  } while (promptUserData_continue());
-
-  return collectedEmployees;
+const promptUserData_continue = function() {
+  addAnotherEmployee = confirm("Add another employee?"); 
+  return addAnotherEmployee;
 }
 
-// Display the average salary
+const promptUserData_firstName = function() {
+  let userFirstName = prompt("First Name"); 
+  return userFirstName;
+}
+
+const promptUserData_lastName = function() {
+  let userLastName = prompt("Last Name"); 
+  return userLastName;
+}
+
+const promptUserData_salary = function() {
+  let userSalary = prompt("Salary"); 
+  return userSalary;
+}
+
 const displayAverageSalary = function(employeesArray) {
-
-  let numberOfEmployees = employeesArray.length;
-  let runningTotalEmployeeSalary = 0;
-  for (let i = 0; i < numberOfEmployees; i++){
-    runningTotalEmployeeSalary += parseInt(employeesArray[i].salary);
-  }
-  let averageSalary = (runningTotalEmployeeSalary / parseFloat(numberOfEmployees)).toFixed(2);
-  console.log(`The average emloyee salary between our ${numberOfEmployees} employee(s) is $` + averageSalary);
+  let numberOfEmployees = employeesArray.length; // get number of employees
+  let averageSalary = getAverageSalary(employeesArray); // get the average salary
+  console.log(`The average emloyee salary between our ${numberOfEmployees} employee(s) is $` + averageSalary); // display the results
 }
 
+const getAverageSalary = function(employeesArray){
+  let numberOfEmployees = employeesArray.length; // get the number of employees
+  let runningTotalEmployeeSalary = 0; // keep track of the running total
+  for (let i = 0; i < numberOfEmployees; i++){
+    runningTotalEmployeeSalary += parseInt(employeesArray[i].salary); // keep adding to that running total
+  }
+  let averageSalary = (runningTotalEmployeeSalary / parseFloat(numberOfEmployees)).toFixed(2); //  find the average and format to float with two decimal points
+  return averageSalary;
+}
 
-
-
-// Select a random employee
 const getRandomEmployee = function(employeesArray) {
-  let numberOfEmployees = employeesArray.length;
-  let randomNumber = Math.floor(Math.random() * numberOfEmployees);
-  let randomEmployee = employeesArray[randomNumber];
+  let randomEmployee = returnRandomEmployee(employeesArray);
   console.log(`Congratulation to  ${randomEmployee.firstName} ${randomEmployee.lastName}, our random drawing winner!`);
 }
+
+const returnRandomEmployee = function(employeesArray){
+  let numberOfEmployees = employeesArray.length;
+  let randomNumber = getRandomNumberInRange(numberOfEmployees);
+  let randomEmployee = employeesArray[randomNumber];
+  return randomEmployee;
+}
+
+const getRandomNumberInRange = function(range){
+  let randomNumber = Math.floor(Math.random() * range);
+  return randomNumber;
+}
+
 
 /*
   ====================
