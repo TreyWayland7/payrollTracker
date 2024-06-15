@@ -1,71 +1,54 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
-
-
 const promptUserData_firstName = function() {
   let userFirstName = prompt("First Name"); // prompts the user for first name
-  // let userLastName = prompt("Last Name"); // prompts the user for last name
-  // let userSalary = prompt("Salary"); // prompts the user for salary
   return userFirstName;
 }
 
 const promptUserData_lastName = function() {
-  // let userFirstName = prompt("First Name"); // prompts the user for first name
   let userLastName = prompt("Last Name"); // prompts the user for last name
-  // let userSalary = prompt("Salary"); // prompts the user for salary
   return userLastName;
 }
 
 const promptUserData_salary = function() {
-  // let userFirstName = prompt("First Name"); // prompts the user for first name
-  // let userLastName = prompt("Last Name"); // prompts the user for last name
   let userSalary = prompt("Salary"); // prompts the user for salary
   return userSalary;
 }
 
-const create_employeeObject = function() {
-    // let promptFirstName = promptUserData_firstName();
+const promptUserData_continue = function() {
+  addAnotherEmployee = confirm("Add another employee?"); // prompt the user to add another user
+  return addAnotherEmployee;
+}
 
+const create_employeeObject = function() {
   const employeeData = {
     firstName : promptUserData_firstName(),
     lastName : promptUserData_lastName(),
     salary : promptUserData_salary()
   };
-
   return employeeData;
 }
-
-
 
 // Collect employee data
 const collectEmployees = function() {
 
-  let addAnotherEmployee = true; // needed to initate prompting the user
-  let userArray = []; // this stores the employee object and will be returned
-
   
-  while(addAnotherEmployee){
+  let collectedEmployees = []; // this stores the employee object and will be returned
+  let newEmployee;
 
-    // promptUserData_firstName();
+  do{
 
-
-    // stores information into an object
-    // const employeeData = {
-    //   firstName : userFirstName,
-    //   lastName : userLastName,
-    //   salary : userSalary
-    // };
-  
-    userArray.push(create_employeeObject()); // pushes that object onto the array
-
-    addAnotherEmployee = confirm("Add another employee?"); // prompt the user to add another user
+    newEmployee = create_employeeObject();
+    collectedEmployees.push(newEmployee); // pushes that object onto the array
+    // addAnotherEmployee = confirm("Add another employee?"); 
     
-    if (addAnotherEmployee === false){ // returns the array if the user doesn't want to add another user
-      return userArray;
-    }
-  }
-  return userArray;
+    // if (addAnotherEmployee === false){ 
+    //   return collectedEmployees;
+    // }
+  } while (promptUserData_continue());
+
+  return collectedEmployees;
 }
 
 // Display the average salary
