@@ -60,7 +60,7 @@ const getAverageSalary = function(employeesArray){
 
 const getRandomEmployee = function(employeesArray) {
   let randomEmployee = returnRandomEmployee(employeesArray);
-  console.log(`Congratulation to  ${randomEmployee.firstName} ${randomEmployee.lastName}, our random drawing winner!`);
+  console.log(`Congratulation to ${randomEmployee.firstName} ${randomEmployee.lastName}, our random drawing winner!`);
 }
 
 const returnRandomEmployee = function(employeesArray){
